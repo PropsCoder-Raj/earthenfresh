@@ -1,0 +1,117 @@
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+  /* Bottom left text */
+  .bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+  }
+  
+  /* Top left text */
+  .top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+  }
+  
+  /* Top right text */
+  .top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+  }
+  
+  /* Bottom right text */
+  .bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+  }
+  
+  /* Centered text */
+  .centered {
+    margin: 5% 5%;
+    text-align: left;
+  }
+  .welcome{
+      font-size: 24px;
+      font-weight: 600;
+  }
+  .welcome-desc{
+      color: #9D9D9D;
+}
+.google-btn{
+  margin: unset;
+  margin-right: 5px;
+    --border-radius:10px;
+    --box-shadow: rgba(17, 17, 26, 0.02) 0px 4px 16px, rgba(17, 17, 26, 0.01) 0px 8px 32px;
+}
+.facebook-btn{
+  
+  margin: unset;
+  margin-left: 5px;
+    --border-radius:10px;
+    --box-shadow: rgba(17, 17, 26, 0.02) 0px 4px 16px, rgba(17, 17, 26, 0.01) 0px 8px 32px;
+}
+.dont{
+    color: #9D9D9D;
+    text-align: center;
+    font-size: 14px;
+}
+.register{
+    font-size: 14px;
+}
+.input_number{
+  border:1px solid #e0e0e0;
+  border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.MainContain{
+  
+  h1{
+      font-style: normal;
+      font-weight: bold;
+      font-size: xx-large;
+      line-height: 45px;
+
+      color: #FF6000;
+  }
+
+  label{
+      font-style: normal;
+      font-weight: normal;
+      font-size: small;
+      line-height: 18px;
+
+      color: #FF6000;
+  }
+
+  input{
+      width: 100%;
+      border: 1px solid #7EB462;
+      border-radius: 10px;
+      margin-top: 5px;
+      font-size: small;
+      padding: 10px;
+      outline: unset;
+      color: #000;
+  }
+
+  .forgot-password{
+      font-size: small;
+      color: #FF6000;
+      float: right;
+      background: transparent;
+  }
+
+  .btn-icons{
+      padding: 5px;
+      margin: 5px;
+      border-radius: 5px;
+  }
+}

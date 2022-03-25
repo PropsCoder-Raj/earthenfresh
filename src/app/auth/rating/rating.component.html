@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title mode="ios">
+      <ng-container *ngIf="!isDatabase">Rate Your Order</ng-container>
+      <ng-container *ngIf="isDatabase">You rated the order</ng-container>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="primary" style="font-weight: 600;" (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <img src="assets/rating.jpg"/>
+  <ng-container *ngIf="!isDatabase">
+    <ng-container *ngFor="let item of items">
+      <ion-item style="margin-bottom: 10px;">
+        <ion-label >{{item.data.name}}</ion-label>
+        <div slot="end">
+          <ion-icon *ngIf="item.rating >= 1" (click)="item.rating = 1; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating >= 2" (click)="item.rating = 2; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating >= 3" (click)="item.rating = 3; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating >= 4" (click)="item.rating = 4; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating >= 5" (click)="item.rating = 5; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+
+          <ion-icon *ngIf="item.rating < 1" (click)="item.rating = 1; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating < 2" (click)="item.rating = 2; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating < 3" (click)="item.rating = 3; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating < 4" (click)="item.rating = 4; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon *ngIf="item.rating < 5" (click)="item.rating = 5; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+        </div>
+      </ion-item>
+    </ng-container>
+  </ng-container>  
+
+  
+  <ng-container *ngIf="isDatabase">
+    <ng-container *ngIf="itemsDatabase.length === 0">
+      <ion-item style="margin-bottom: 10px;">
+        <ion-label><ion-skeleton-text animated style="width: 50%"> </ion-skeleton-text> <ion-skeleton-text animated style="width: 20%;margin-left: 30%;"></ion-skeleton-text></ion-label>
+      </ion-item>
+    </ng-container>
+    <ng-container *ngFor="let item of itemsDatabase">
+      <ion-item style="margin-bottom: 10px;">
+        <ion-label >{{item.data.name}}</ion-label>
+        <div slot="end">
+          <ion-icon disabled="true" *ngIf="item.rating >= 1" (click)="item.rating = 1; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating >= 2" (click)="item.rating = 2; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating >= 3" (click)="item.rating = 3; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating >= 4" (click)="item.rating = 4; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating >= 5" (click)="item.rating = 5; change()" name="star" color="warning" style="font-size: 20px;"></ion-icon>
+
+          <ion-icon disabled="true" *ngIf="item.rating < 1" (click)="item.rating = 1; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating < 2" (click)="item.rating = 2; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating < 3" (click)="item.rating = 3; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating < 4" (click)="item.rating = 4; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+          <ion-icon disabled="true" *ngIf="item.rating < 5" (click)="item.rating = 5; change()" name="star-outline" style="font-size: 20px;"></ion-icon>
+        </div>
+      </ion-item>
+    </ng-container>
+  </ng-container>  
+</ion-content>
+<ion-footer *ngIf="ratingStatus && !isDatabase">
+  <ion-toolbar>
+    <ion-button mode="ios" expand="block" (click)="ratings()" class="add-btn">Ratings <ion-spinner *ngIf="loader"></ion-spinner></ion-button>
+  </ion-toolbar>
+</ion-footer>

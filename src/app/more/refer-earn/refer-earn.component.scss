@@ -1,0 +1,52 @@
+ion-content{
+    --background : linear-gradient(to right bottom, #8cbc72, #7FB461, #709e56, #709e56, #709e56, #8cbc72)
+}
+
+.referalCodeBox {
+    padding: 0 5px;
+    ion-item{
+        ion-label{
+            font-size: small;
+            white-space: break-spaces;
+        }
+    }
+}
+
+#list{
+    ion-item{
+        --background : transparent;
+        color: white;
+    }
+}
+
+.topSection {
+    ion-item{
+        border: solid 1px #fff;
+        border-radius: 50px;
+        padding: unset;
+        ion-label{
+            margin: unset;
+            white-space: break-spaces;
+        }
+        ion-button{
+            --box-shadow: unset;
+            --border-radius: 50px;
+            color: white;
+        }
+    }
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-weight: 400;
+
+    img{
+        height: 12rem;
+    }
+
+}

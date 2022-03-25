@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" mode="ios"> 
+        <ion-icon name="chevron-back" class="back-icon"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+    <ion-title>Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="container" *ngIf="transactionCount === 0">
+    <ion-icon name="wallet" color="primary"></ion-icon>
+    <h5>No Wallet History</h5>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ng-container *ngFor="let item of transactionList">
+          <ion-item lines="full">
+            <ion-label>
+              <ion-row *ngIf="item.data.type === 'product'">
+                <ion-col size="9">
+                  <div class="message">Paid for {{item.orderId}}</div>
+                  <h3><ion-text color="dark" class="date-time">{{item.data.createdAt | date: 'dd MMM yyyy, hh:mm a'}}</ion-text></h3>
+                </ion-col>
+                <ion-col size="3">
+                  <h3 class="ion-text-right">
+                    <ng-container *ngIf="item.data.transactionType === 'debit'">
+                      <ion-text class="amount" color="danger"> <b>-{{item.data.amount}}</b> </ion-text>
+                    </ng-container>
+                    <ng-container *ngIf="item.data.transactionType === 'credit'">
+                      <ion-text class="amount" color="success"> <b>+{{item.data.amount}}</b> </ion-text>
+                    </ng-container>
+                  </h3>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="item.data.type === 'referral'">
+                <ion-col size="9">
+                  <div class="message">Referral Code Apply</div>
+                  <h3><ion-text color="dark" class="date-time">{{item.data.createdAt | date: 'dd MMM yyyy, hh:mm a'}}</ion-text></h3>
+                </ion-col>
+                <ion-col size="3">
+                  <h3 class="ion-text-right">
+                    <ng-container *ngIf="item.data.transactionType === 'debit'">
+                      <ion-text class="amount" color="danger"> <b>-{{item.data.amount}}</b> </ion-text>
+                    </ng-container>
+                    <ng-container *ngIf="item.data.transactionType === 'credit'">
+                      <ion-text class="amount" color="success"> <b>+{{item.data.amount}}</b> </ion-text>
+                    </ng-container>
+                  </h3>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="item.data.type === 'add-balance'">
+                <ion-col size="9">
+                  <div class="message">{{item.data.message}}</div>
+                  <h3><ion-text color="dark" class="date-time">{{item.data.createdAt | date: 'dd MMM yyyy, hh:mm a'}}</ion-text></h3>
+                </ion-col>
+                <ion-col size="3">
+                  <h3 class="ion-text-right">
+                    <ng-container *ngIf="item.data.transactionType === 'debit'">
+                      <ion-text class="amount" color="danger"> <b>-{{item.data.amount}}</b> </ion-text>
+                    </ng-container>
+                    <ng-container *ngIf="item.data.transactionType === 'credit'">
+                      <ion-text class="amount" color="success"> <b>+{{item.data.amount}}</b> </ion-text>
+                    </ng-container>
+                  </h3>
+                </ion-col>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

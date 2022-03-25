@@ -1,0 +1,40 @@
+<ion-content>
+  <div class="container">
+    <img src="assets/welcome.png" style="width:100%;">
+    <div class="centered" id="content">
+      <ion-label color="dark" class="welcome">Welcome</ion-label>
+      <p class="welcome-desc">Choose anything from daily essentials from grocery store to home delivey</p>
+      <ion-item lines="none" class="input_number" *ngIf="signup">
+        <ion-input type="text" placeholder="Name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="input_number" *ngIf="signup">
+        <ion-input type="email" placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" ></ion-input>
+      </ion-item>
+        <ion-grid class="MainContain">
+          <ion-row>
+            <ion-col size="2">
+              <input type="text" placeholder="+91" value="+91" disabled>
+            </ion-col>
+            <ion-col size="10">
+              <ion-item lines="none" class="input_number">
+                <ion-input type="tel" placeholder="Enter Mobile No" [(ngModel)]="mobile" [ngModelOptions]="{standalone: true}" ></ion-input>
+                <ion-icon name="arrow-forward-circle" *ngIf="!pwS && !loading" (click)="getPassword()" slot="end" color="primary" style="font-size: 30px; cursor: pointer;"></ion-icon>
+                <ion-spinner name="crescent" *ngIf="!pwS && loading"></ion-spinner>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+        <div id="recaptcha-container"></div>
+      <ion-item lines="none"  *ngIf="pwS">
+        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+        <!-- <ion-input type="password" placeholder="Enter Password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" ></ion-input> -->
+        <ion-icon name="arrow-forward-circle" (click)="verify_otp()" *ngIf="!loading" slot="end" color="primary" style="font-size: 30px; cursor: pointer;"></ion-icon>
+        <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+      </ion-item>
+
+     
+      <p class="dont">I agree to <span style="color: #7FB462;"><span routerLink="/other/privacy">Privacy,</span>&nbsp;<span routerLink="/other/shipping">Shipping & Payment Info</span>,&nbsp;<span routerLink="/other/return">Return Policy</span>, &nbsp;<span routerLink="/other/tnc">T&Cs</span></span></p>
+    </div>
+  </div>
+</ion-content>

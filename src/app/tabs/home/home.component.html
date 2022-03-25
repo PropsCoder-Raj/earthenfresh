@@ -1,0 +1,359 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons class="start" slot="start" *ngIf="addressCount > 0">
+      <i class="material-icons" *ngIf="address_type === 'Home'" slot="start">home</i>
+      <i class="material-icons" *ngIf="address_type === 'Work'" slot="start">work</i>
+      <i class="material-icons" *ngIf="address_type !== 'Home' && address_type !== 'Work'" slot="start">place</i>
+    </ion-buttons>
+    <ion-title *ngIf="addressCount > 0" (click)="drawer.toggleDrawer(addressArr[0])">
+      <span>{{address_type}} - {{address_house_flat_floor_no}}, {{address_apartment_road_area}}, {{address_landmark}},
+        {{address_city}}, {{address_pincode}}</span>
+    </ion-title>
+    <ion-title *ngIf="addressCount === 0" (click)="drawer.toggleDrawer(addressArr[0])">
+      <ion-text color="primary"><b>Add address</b></ion-text>
+    </ion-title>
+    <ion-buttons *ngIf="addressCount > 0" [routerLink]="['/more/notification']" slot="end">
+      <i class="material-icons animate__animated animate__swing animate__delay-2s animate__repeat-3" slot="start"
+        *ngIf="notificationCount !== 0">notifications</i>
+      <i class="material-icons" slot="start" *ngIf="notificationCount === 0">notifications</i>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <div class="backdrop" [ngClass]="backdropVisible ? 'fade-in' : 'fade'" tappable></div>
+  <app-drawerv (openStateChanged)="toggleBackdrop($event)" #drawer></app-drawerv>
+
+  <ng-container *ngIf="addressCount === 0">
+    <div class="container">
+      <div>
+        <img src="assets/addressPerson.svg" alt="">
+      </div>
+      <h6>Please add address to check delivery location</h6>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="addressCount > 0">
+    <div id="searchBox"></div>
+    <ion-item lines="none" class="search">
+      <ion-input placeholder="Search..." (keyup)="search()" [(ngModel)]="searchText" (click)="scrollToTop()">
+      </ion-input>
+      <span class="icon icon-search" slot="end"></span>
+    </ion-item>
+
+    <div>
+      <ion-grid>
+        <ion-row *ngIf="categories.length === 0">
+          <div id="ion-category" scrollX="true" class="wide-as-needed" scrollbar="false">
+            <div class="category-item">
+              <ion-card class="category-card">
+                <div class="catimage xyz">
+                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                </div>
+                <ion-card-header style="margin-top: 20px;">
+                  <ion-card-title text-wrap>
+                    <ion-skeleton-text animated style="width: 60%;margin-left: 20%;"></ion-skeleton-text>
+                  </ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </div>
+
+            <div class="category-item">
+              <ion-card class="category-card">
+                <div class="catimage xyz">
+                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                </div>
+                <ion-card-header style="margin-top: 20px;">
+                  <ion-card-title text-wrap>
+                    <ion-skeleton-text animated style="width: 60%;margin-left: 20%;"></ion-skeleton-text>
+                  </ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </div>
+
+            <div class="category-item">
+              <ion-card class="category-card">
+                <div class="catimage xyz">
+                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                </div>
+                <ion-card-header style="margin-top: 20px;">
+                  <ion-card-title text-wrap>
+                    <ion-skeleton-text animated style="width: 60%;margin-left: 20%;"></ion-skeleton-text>
+                  </ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </div>
+
+            <div class="category-item">
+              <ion-card class="category-card">
+                <div class="catimage xyz">
+                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                </div>
+                <ion-card-header style="margin-top: 20px;">
+                  <ion-card-title text-wrap>
+                    <ion-skeleton-text animated style="width: 60%;margin-left: 20%;"></ion-skeleton-text>
+                  </ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </div>
+
+            <div class="category-item">
+              <ion-card class="category-card">
+                <div class="catimage xyz">
+                  <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                </div>
+                <ion-card-header style="margin-top: 20px;">
+                  <ion-card-title text-wrap>
+                    <ion-skeleton-text animated style="width: 60%;margin-left: 20%;"></ion-skeleton-text>
+                  </ion-card-title>
+                </ion-card-header>
+              </ion-card>
+            </div>
+
+          </div>
+        </ion-row>
+        <ion-row *ngIf="categories.length === 0">
+          <ion-col size="6">
+            <ion-card class="product_card">
+              <div style="height: 100px; margin-bottom: 10px;text-align: center;">
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </div>
+              <div class="product_name">
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </div>
+              <p class="product_weight">
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </p>
+              <ion-label class="product_price">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </ion-label>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-card class="product_card">
+              <div style="height: 100px; margin-bottom: 10px;text-align: center;">
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </div>
+              <div class="product_name">
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </div>
+              <p class="product_weight">
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </p>
+              <ion-label class="product_price">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </ion-label>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-card class="product_card">
+              <div style="height: 100px; margin-bottom: 10px;text-align: center;">
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </div>
+              <div class="product_name">
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </div>
+              <p class="product_weight">
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </p>
+              <ion-label class="product_price">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </ion-label>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-card class="product_card">
+              <div style="height: 100px; margin-bottom: 10px;text-align: center;">
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </div>
+              <div class="product_name">
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </div>
+              <p class="product_weight">
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </p>
+              <ion-label class="product_price">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </ion-label>
+            </ion-card>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-card class="product_card">
+              <div style="height: 100px; margin-bottom: 10px;text-align: center;">
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+              </div>
+              <div class="product_name">
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </div>
+              <p class="product_weight">
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </p>
+              <ion-label class="product_price">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </ion-label>
+            </ion-card>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <div id="all-products" style="display: none;">
+      <ion-item lines="none" class="proname">
+        <span>All Products</span>
+      </ion-item>
+      <ion-grid style="margin-bottom: 50px;">
+        <ion-row>
+          <ng-container *ngFor="let itemProducts of products | filter: searchText ; let i = index">
+            <ion-col size="6">
+              <ion-card class="product_card">
+                <div id="prod_id_{{itemProducts.id}}" (click)="drawer.toggleDrawer(itemProducts, true)"></div>
+                <div (click)="drawer.toggleDrawer(itemProducts)"
+                  style="height: 100px; margin-bottom: 10px;text-align: center;">
+                  <img src="{{itemProducts.imageUrl}}" class="product_img" />
+                </div>
+                <div class="product_name" (click)="drawer.toggleDrawer(itemProducts)">{{itemProducts.name}}</div>
+                <p class="product_weight" (click)="drawer.toggleDrawer(itemProducts)" *ngIf="itemProducts.weight !== 0">
+                  <ng-container *ngIf="itemProducts.weight >= 1">
+                    {{itemProducts.weight}} kg
+                  </ng-container>
+                  <ng-container *ngIf="1 > itemProducts.weight">
+                    {{itemProducts.weight * 1000}} g
+                  </ng-container>
+                </p>
+
+
+                <ion-button *ngIf="itemProducts.inStock === true && itemProducts.options.length === 0"
+                  class="product_qty" color="light">
+                  <ion-button (click)="removeCart(itemProducts)" class="product_qty"
+                    style="--border-color: white !important;width: 27px;" color="light">
+                    <ion-icon name="remove-outline" class="remove"></ion-icon>
+                  </ion-button>
+                  <ion-label style="margin:0px 2px;">{{cartS.getCount_1(itemProducts)}}</ion-label>
+                  <ion-button (click)="addCart(itemProducts)" class="product_qty"
+                    style="--border-color: white !important;" color="light">
+                    <ion-icon name="add-circle" class="add"></ion-icon>
+                  </ion-button>
+                </ion-button>
+
+                <ion-button *ngIf="itemProducts.inStock === true && itemProducts.options.length > 0" class="product_qty" color="light">
+                  <ion-button (click)="addCart(itemProducts)" class="product_qty_add" color="dark" style="--padding-left: 5px; --padding-right: 5px;">
+                    ADD
+                  </ion-button>
+                </ion-button>
+                
+                <div class="product_qty" *ngIf="itemProducts.inStock === false">
+                  <ion-text color="danger" style="font-size: x-small;font-weight: 600;">Out of Stock</ion-text>
+                </div>
+                <ion-label class="product_price" (click)="drawer.toggleDrawer(itemProducts)">₹
+                  {{itemProducts.defaultDisplayedPrice}}
+                </ion-label>
+                <ion-label *ngIf="itemProducts.compareToPrice > 0" class="product_price_muted text-light"
+                  (click)="drawer.toggleDrawer(itemProducts)">₹ {{itemProducts.compareToPrice}}
+                </ion-label>
+              </ion-card>
+              <div *ngIf="itemProducts.options.length > 0" class="customizableText">Customizable</div>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div id="ion-category" scrollX="true" class="wide-as-needed" scrollbar="false">
+      <ng-container *ngFor="let item of categories">
+        <div class="category-item">
+          <ion-card class="category-card" (click)="scroll(item.data.name)">
+            <div class="catimage xyz" style="background-color:#7FB462;">
+              <img src="{{item.data.imageUrl}}" style="height: 20px; width: 20px;" />
+            </div>
+            <ion-card-header>
+              <ion-card-title text-wrap>{{item.data.name}}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      </ng-container>
+    </div>
+    <div></div>
+    <div id="ion-content" style="margin-bottom: 50px;">
+      <ng-container *ngFor="let item of categories">
+        <div id="{{item.data.name}}" style="margin-bottom: 2vh;"></div>
+        <ion-item lines="none" class="proname">
+          <span>{{item.data.name}}</span>
+        </ion-item>
+        <ion-grid>
+          <ion-row>
+            <ng-container *ngFor="let itemProducts of item['products']; let i = index">
+              <ion-col size="6" *ngIf="itemProducts.enabled === true">
+                <ion-card class="product_card">
+                  <div id="prod_id_{{itemProducts.id}}" (click)="drawer.toggleDrawer(itemProducts, true)"></div>
+                  <div (click)="drawer.toggleDrawer(itemProducts)"
+                    style="height: 100px; margin-bottom: 10px;text-align: center;">
+                    <img src="{{itemProducts.imageUrl}}" class="product_img" />
+                  </div>
+                  <div class="product_name" (click)="drawer.toggleDrawer(itemProducts)">{{itemProducts.name}}</div>
+                  <p class="product_weight" (click)="drawer.toggleDrawer(itemProducts)"
+                    *ngIf="itemProducts.weight !== 0">
+                    <ng-container *ngIf="itemProducts.weight >= 1">
+                      {{itemProducts.weight}} kg
+                    </ng-container>
+                    <ng-container *ngIf="1 > itemProducts.weight">
+                      {{itemProducts.weight * 1000}} g
+                    </ng-container>
+                  </p>
+                  <ion-button *ngIf="itemProducts.inStock === true && itemProducts.options.length === 0"
+                  class="product_qty" color="light">
+                  <ion-button (click)="removeCart(itemProducts)" class="product_qty"
+                    style="--border-color: white !important;width: 27px;" color="light">
+                    <ion-icon name="remove-outline" class="remove"></ion-icon>
+                  </ion-button>
+                  <ion-label style="margin:0px 2px;">{{cartS.getCount_1(itemProducts)}}</ion-label>
+                  <ion-button (click)="addCart(itemProducts)" class="product_qty"
+                    style="--border-color: white !important;" color="light">
+                    <ion-icon name="add-circle" class="add"></ion-icon>
+                  </ion-button>
+                </ion-button>
+
+                <ion-button *ngIf="itemProducts.inStock === true && itemProducts.options.length > 0" class="product_qty" color="light">
+                  <ion-button (click)="addCart(itemProducts)" class="product_qty_add" color="dark" style="--padding-left: 5px; --padding-right: 5px;">
+                    ADD
+                  </ion-button>
+                </ion-button>
+                  <div class="product_qty" *ngIf="itemProducts.inStock === false">
+                    <ion-text color="danger" style="font-size: x-small;font-weight: 600;">Out of Stock</ion-text>
+                  </div>
+                  <ion-label class="product_price" (click)="drawer.toggleDrawer(itemProducts)">₹
+                    {{itemProducts.defaultDisplayedPrice}}
+                  </ion-label><br>
+                  <ion-label *ngIf="itemProducts.compareToPrice > 0" class="product_price_muted text-light"
+                    (click)="drawer.toggleDrawer(itemProducts)">₹ {{itemProducts.compareToPrice}}
+                  </ion-label>
+                </ion-card>
+                <div *ngIf="itemProducts.options.length > 0" class="customizableText">Customizable</div>
+              </ion-col>
+            </ng-container>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+    </div>
+
+    <ion-item *ngIf="cartS.carts.length > 0" style="position: fixed;bottom: 0;width: 100%" lines="none" color="primary">
+      <ion-text class="ion-text-center itemCount" slot="start">
+        {{cartS.carts.length}}<br>
+        Items
+      </ion-text>
+      <ion-text slot="start" class="cartTotal">
+        <b>₹ {{cartS.finalTotalPayAmount}}</b>&nbsp;<span
+          *ngIf="cartS.walletAction === true && cartS.walletPaymentStatus === 'greaterThan'" style="font-size:normal;">+
+          {{cartS.balance}} wallet</span><br>
+
+      </ion-text>
+      <ion-text slot="end" [routerLink]="['/product/cart']"> Checkout </ion-text>
+      <ion-icon slot="end" [routerLink]="['/product/cart']" name="arrow-forward-outline"></ion-icon>
+    </ion-item>
+  </ng-container>
+
+</ion-content>

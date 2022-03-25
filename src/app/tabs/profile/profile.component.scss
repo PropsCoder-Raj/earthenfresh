@@ -1,0 +1,29 @@
+.my_address{
+    border-bottom: 1px solid #e0e0e0; 
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    ion-icon{
+        cursor: pointer;
+        color:#424242;
+        font-size: 20px; 
+    }
+}
+
+ion-header{
+    ion-icon{
+        font-size: xx-large;
+    }
+}
+
+.logout{
+    margin: 20px 0;
+    text-transform: uppercase;
+
+    ion-button{
+        font-weight: 600;--background: transparent;
+    }
+}
+
+ion-skeleton-text{
+    height: 12px;
+}

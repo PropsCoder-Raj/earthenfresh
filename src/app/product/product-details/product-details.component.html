@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <div class="back" (click)="back()">
+        <ion-icon name="chevron-back" class="back-icon"></ion-icon>
+      </div>
+    </ion-buttons>
+    <ion-title mode="ios"></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <img src="assets/product/peach.svg" class="product_img"/>
+    <div class="product_card">
+      <h3 style="margin-bottom: 4px;">Peaches</h3>
+      <p class="product_weight">1 kg</p>
+      <ion-label class="product_price">₹ 100</ion-label>
+      <ion-button  class="product_qty" color="light">
+        <ion-icon name="remove-outline" class="remove" ></ion-icon>
+        <ion-label style="margin:0px 5px;">1</ion-label>
+        
+        <ion-icon name="add-circle" class="add" ></ion-icon>
+      </ion-button>
+      <h6 style="font-size:16px;color: #2f2f2f;">Description</h6>
+      <p class="product_desc">Peach is a deciduous tree or shrub in the family Rosaceae grown for its edible fruit of the same name. The peach tree is relatively short with slender and and supple branches.</p>
+    </div>
+</ion-content>
+<ion-footer  class="ion-no-border">
+  <ion-toolbar class="footer">
+    <ion-button slot="end" class="order-btn">Add to cart</ion-button>
+  </ion-toolbar>
+</ion-footer>

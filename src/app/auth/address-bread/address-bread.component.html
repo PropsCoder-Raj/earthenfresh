@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title *ngIf="!edit" class="ion-text-center">Add Address</ion-title>
+    <ion-title *ngIf="edit" class="ion-text-center">Update Address</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="light" style="font-weight: 600;" (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item style="margin-bottom: 10px;">
+    <ion-label position="stacked">House / Flat / Floor No.</ion-label>
+    <ion-input type="text" placeholder="Enter House / Flat / Floor No." [(ngModel)]="house_flat_floor_no" [ngModelOptions]="{standalone: true}"></ion-input>
+  </ion-item>
+  <ion-item style="margin-bottom: 10px;">
+    <ion-label position="stacked">Apartment / Road / Area</ion-label>
+    <ion-input type="text" placeholder="Enter Apartment / Road / Area" [(ngModel)]="apartment_road_area" [ngModelOptions]="{standalone: true}"></ion-input>
+  </ion-item>
+  <ion-item style="margin-bottom: 10px;">
+    <ion-label position="stacked">Landmark</ion-label>
+    <ion-input type="text" placeholder="Enter landmark" [(ngModel)]="landmark" [ngModelOptions]="{standalone: true}"></ion-input>
+  </ion-item>
+  <ion-item style="margin-bottom: 10px;">
+    <ion-label position="stacked">City</ion-label>
+    <ion-input type="text" placeholder="Enter city" [(ngModel)]="city" [ngModelOptions]="{standalone: true}"></ion-input>
+  </ion-item>
+  <ion-item style="margin-bottom: 10px;">
+    <ion-label position="stacked">Pincode</ion-label>
+    <ion-input type="number" placeholder="Enter pincode" [(ngModel)]="pincode" [ngModelOptions]="{standalone: true}"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-label position="stacked">Save As</ion-label>
+    <div class="radio" style="margin-top:unset;position: unset;display: inline;">
+      <ng-container *ngFor="let item of arr; let i = index">
+        <label style="margin-left: 20px;">
+          <input type="radio" name="optionsRadios" id="optionsRadios{{ i + 1 }}" value="{{item.name}}" (change)="contentType($event)"> &nbsp;{{item.name}}
+        </label>
+      </ng-container>
+    </div>
+  </ion-item>
+  <ion-item style="margin-bottom: 10px;" *ngIf="type === 'Other'">
+    <ion-label position="stacked">Save As</ion-label>
+    <ion-input type="text" placeholder="Enter Other Specific" [(ngModel)]="otherType" [ngModelOptions]="{standalone: true}"></ion-input>
+  </ion-item>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button mode="ios" (click)="createAddress()" *ngIf="!edit" expand="block" class="update-btn">SUBMIT</ion-button>
+    <ion-button mode="ios" (click)="updateAddress()" *ngIf="edit" expand="block" class="update-btn">SUBMIT</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,115 @@
+.product_card{
+    --background: white !important;
+    .half{
+        margin-top: unset;
+    margin-bottom: unset;
+    }
+    .product_name{
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .product_weight{
+        margin: unset;
+        font-size: 11px;
+        color: #9D9D9D;
+    }
+    .product_img{
+        margin:0 auto;
+    }
+    .product_qty{
+        --padding-start:3px;
+        --padding-end:unset;
+        --border-radius:20px;
+        --border-color:#D3D2D2;
+        --border-width:1px;
+        height: 27px;
+        --box-shadow:unset;
+        color:#2F2F2F;
+        --border-style:solid;
+        float: right;
+        font-size: 13px;
+        margin:unset;
+        .remove{
+            font-size: 20px;
+            color: #9D9D9D;
+        }
+        .add{
+            font-size: 25px;
+            color:#2F2F2F;
+        }
+
+    }
+    .product_price{
+        color:#7FB462;
+        font-weight: 600;
+        font-size: 16px;
+    }
+}
+ion-footer{
+    background-color:#FBFBFB;
+    padding: 0px 15px;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 22px 70px 4px;
+    border-radius: 40px 40px 0px 0px;
+    .footer{
+        background-color:#FBFBFB;
+        --box-shadow: rgba(0, 0, 0, 0.20) 0px 22px 70px 4px;
+        border-radius: 40px 40px 0px 0px;
+        padding: 0px 10px;
+    }
+   
+    .total{
+        font-size: 14px;
+        color:#9D9D9D;
+    }
+    .walletAmount{
+        font-size: 12px;
+        color: darkslategray;
+    }
+    .total-amt{
+        font-weight: 600;
+    font-size: 20px;
+    margin-left: 10px;
+    }
+    .order-btn{
+        --border-radius:50px;
+        height: 40px;
+        width: 150px;
+        font-size: 16px;
+        font-weight: 600;
+        --box-shadow: rgba(17, 17, 26, 0.02) 0px 4px 16px, rgba(17, 17, 26, 0.01) 0px 8px 32px;
+    }
+
+}
+
+
+
+.apply_coupon{
+    margin:10px;
+    --background:white;
+    border:1px dashed lightgray;
+    border-radius: 10px;
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-weight: 400;
+
+    img{
+        height: 12rem;
+    }
+
+}
+
+.bottomContainer{
+    font-size: small;
+    bottom: 0;
+    position: absolute;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+}

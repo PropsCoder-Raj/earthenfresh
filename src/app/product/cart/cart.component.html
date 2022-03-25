@@ -1,0 +1,136 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" mode="ios">
+        <ion-icon name="chevron-back" class="back-icon"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+    <ion-title>Cart</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content style="--background:white;">
+  <div id="closeForm" (click)="loader = !loader"></div>
+  <ng-container *ngIf="cartS.carts.length === 0">
+    <div class="container">
+      <div>
+        <img src="assets/shopping-cart.png" alt="">
+      </div>
+      <div>Your shopping carts empty.</div>
+      <div [routerLink]="['/home']"><b>
+          <ion-text color="primary">Shop Now</ion-text>
+        </b></div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="cartS.carts.length !== 0">
+    <ng-container *ngFor="let itemProducts of cartS.carts">
+      <ion-item lines="none" class="product_card">
+        <img src="{{itemProducts.imageUrl}}" slot="start" width="80" height="80" style="margin-right:5px">
+        <ion-label class="half" *ngIf="itemProducts.selectedOption.length === 0">
+          <span class="product_name">{{itemProducts.unique}}
+            <span class="product_weight" *ngIf="itemProducts.weight !== 0">
+              <ng-container *ngIf="itemProducts.weight >= 1">
+                {{itemProducts.weight}} kg
+              </ng-container>
+              <ng-container *ngIf="1 > itemProducts.weight">
+                {{itemProducts.weight * 1000}} g
+              </ng-container>
+            </span>
+          </span><br>
+          <span class="product_price">₹ {{itemProducts.price}}</span>
+        </ion-label>
+        <ion-label class="half" *ngIf="itemProducts.selectedOption.length > 0">
+          <span class="product_name">{{itemProducts.unique}}
+          </span><br>
+          <span class="product_price">₹
+            {{itemProducts.price + itemProducts.selectedOption[0].data.priceModifier}}</span>
+        </ion-label>
+        <ion-button class="product_qty" color="light" slot="end">
+          <ion-button (click)="removeCart(itemProducts)" class="product_qty"
+            style="--border-color: white !important;width: 27px;" color="light">
+            <ion-icon name="remove-outline" class="remove"></ion-icon>
+          </ion-button>
+          <ion-label style="margin:0px 2px;">{{cartS.getCount_2(itemProducts)}}</ion-label>
+          <ion-button (click)="addCart(itemProducts)" class="product_qty" style="--border-color: white !important;"
+            color="light">
+            <ion-icon name="add-circle" class="add"></ion-icon>
+          </ion-button>
+        </ion-button>
+      </ion-item>
+    </ng-container>
+
+    <ion-item lines="none" class="apply_coupon">
+      <img src="assets/discount.png" width="30" slot="start" style="margin-right: 20px;">
+      <ion-input type="text" [(ngModel)]="coupon" placeholder="Enter Coupon Code"></ion-input>
+      <ion-button mode="ios" (click)="applyCoupon()">Apply Coupon</ion-button>
+    </ion-item>
+    <ion-label style="margin-left:15px; font-size: 14px;">Bill Details</ion-label>
+    <ion-item style="--background:white;--min-height: 30px;" lines="none">
+      <span style="color: gray; font-size: 13px;">Total Price</span>
+      <span slot="end" style="font-size: 14px;">₹ {{cartS.totalAmount}}</span>
+    </ion-item>
+    <ion-item style="--background:white;--min-height: 30px;">
+      <span style="color: gray; font-size: 13px;">Discount</span>
+      <span slot="end" style="font-size: 14px; color: #7FB462;"> <span *ngIf="discount !== 0">-</span>₹
+        {{cartS.discountAmount | number : '1.2-2'}}</span>
+    </ion-item>
+    <ion-item style="--background:white;--min-height: 30px;" lines="none">
+      <span style="color: gray; font-size: 13px;">Cart Amount</span>
+      <span slot="end" style="font-size: 14px;">₹ {{cartS.cartAmount}}</span>
+    </ion-item>
+    <ion-item style="--background:white;border-bottom: 1px solid lightgray;" lines="none">
+      <span>To Pay</span>
+      <span slot="end" style="color: #7FB462;">₹ {{cartS.totalPayAmount}}</span>
+    </ion-item>
+    <ion-item *ngIf="addressCount !== 0" style="--background:white;--min-height: 30px;" lines="none">
+      <span style="font-size: 14px;">Delivery Address</span>
+      <ion-button *ngIf="addressCount > 1" fill="clear" slot="end" style="font-weight: bold;"
+        (click)="change = !change">Change</ion-button>
+    </ion-item>
+    <ng-container *ngIf="addressCount === 0" style="text-align: center;display: block;width: 100%;">
+      <ion-button mode="ios" [routerLink]="['/auth/manage-address']" expand="block">Add Address</ion-button>
+    </ng-container>
+    <ion-list *ngIf="change === true">
+      <ion-radio-group value="{{value}}">
+        <ng-container *ngFor="let item of addressList; let i = index;">
+          <ion-item>
+            <ion-label>{{item.data.type}}</ion-label>
+            <ion-radio slot="start" (click)="check(i); change = !change; updateUserAddressDefault(item.data._id)"
+              value="{{item.data.type}}"></ion-radio>
+          </ion-item>
+        </ng-container>
+      </ion-radio-group>
+    </ion-list>
+    <ng-container *ngFor="let item of addressList">
+      <ion-item *ngIf="item.status === true" lines="none" style="--background:white;">
+        <ion-label>
+          <h3>{{item.data.type}}</h3>
+          <p style="white-space: pre-wrap;">{{item.data.house_flat_floor_no}}, {{item.data.apartment_road_area}},
+            {{item.data.landmark}},
+            {{item.data.city}} - {{item.data.pincode}}</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+</ion-content>
+<ion-footer class="ion-no-border" *ngIf="cartS.carts.length !== 0">
+  <ion-toolbar class="footer">
+    <span class="total">To Pay:</span>
+    <ng-container *ngIf="walletPaymentStatus === 'isEqual' || walletPaymentStatus === 'lessThan'">
+      <span class="total-amt">₹ {{cartS.finalTotalPayAmount}}</span>
+    </ng-container>
+    <ng-container *ngIf="walletPaymentStatus === 'greaterThan'">
+      <span class="total-amt">₹ {{cartS.finalTotalPayAmount}}</span>
+      <ng-container *ngIf="walletAction === true">
+        <span class="walletAmount"> + {{balance}} Wallet</span>
+      </ng-container>
+    </ng-container>
+    <ion-button slot="end" class="order-btn" (click)="payment()" *ngIf="!loader">
+      Pay
+    </ion-button>
+    <ion-button slot="end" class="order-btn" *ngIf="loader">
+      <ion-spinner></ion-spinner>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

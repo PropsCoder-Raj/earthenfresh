@@ -1,0 +1,55 @@
+
+.address{
+    white-space: break-spaces;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+.edit-btn{
+    color:#7FB462;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 20px; 
+    cursor: pointer;
+}
+.delete-btn{
+    color:#eb445a;
+    font-weight: bold;
+    font-size: 15px;
+}
+.back{
+    background-color: white;
+    border-radius: 50%;
+    /* padding: 10px; */
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 35px;
+    box-shadow: rgba(17, 17, 26, 0.02) 0px 4px 16px, rgba(17, 17, 26, 0.01) 0px 8px 32px;
+    padding: 6px;
+    height: 35px;
+    .back-icon{
+        font-size: 20px;
+        color:#D3D2D2;
+
+    }
+}
+.add-btn{
+    --border-radius: 20px;
+    --box-shadow: rgba(17, 17, 26, 0.02) 0px 4px 16px, rgba(17, 17, 26, 0.01) 0px 8px 32px;
+   font-weight: 600;
+    margin: 10px;
+}
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-weight: 400;
+
+    img{
+        height: 12rem;
+    }
+
+}

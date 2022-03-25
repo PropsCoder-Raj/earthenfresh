@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1037232141397",
+    "project_id": "earthenfresh-5c635",
+    "storage_bucket": "earthenfresh-5c635.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037232141397:android:6f45c16c6e3cf47e9d10dc",
+        "android_client_info": {
+          "package_name": "com.tectiq.earthenfresh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037232141397-3rh04pu8t60atop4emdlt65vqs49vkl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8vtCpfIiORqN7NYxvWzz3D6eFWUoRcMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037232141397-3rh04pu8t60atop4emdlt65vqs49vkl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

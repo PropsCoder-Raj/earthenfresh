@@ -1,0 +1,180 @@
+<div class="drawer" #drawer style="visibility: hidden;">
+  <div class="ion-text-center">
+    <ion-button id="clearBtn" expand="full" fill="clear" (click)="toggleDrawer('')">
+      <div class="drawer-pull"></div>
+    </ion-button>
+  </div>
+
+  <ng-container id="mainContent">
+    <ion-content style="--padding-start: 10px;--padding-end: 10px;">
+      <ng-container *ngIf="addressDetails.length === 0">
+        <ng-container *ngIf="!optionsStatus">
+          <ion-grid style="padding: unset;width: 100%;height: 80%;overflow: scroll;">
+            <img src="{{productDetails.imageUrl}}" class="product_img" />
+            <div class="product_card">
+              <h3 style="margin-bottom: 4px;">{{productDetails.name}}</h3>
+              <span class="product_weight" *ngIf="productDetails.weight !== 0">
+                <ng-container *ngIf="productDetails.weight >= 1">
+                  {{productDetails.weight}} kg
+                </ng-container>
+                <ng-container *ngIf="1 > productDetails.weight">
+                  {{productDetails.weight * 1000}} g
+                </ng-container>
+              </span>
+              <ion-icon disabled="true" *ngIf="rating >= 1" name="star" color="warning" style="font-size: 14px;">
+              </ion-icon>
+              <ion-icon disabled="true" *ngIf="rating >= 2" name="star" color="warning" style="font-size: 14px;">
+              </ion-icon>
+              <ion-icon disabled="true" *ngIf="rating >= 3" name="star" color="warning" style="font-size: 14px;">
+              </ion-icon>
+              <ion-icon disabled="true" *ngIf="rating >= 4" name="star" color="warning" style="font-size: 14px;">
+              </ion-icon>
+              <ion-icon disabled="true" *ngIf="rating >= 5" name="star" color="warning"
+                style="font-size: 14px;margin-right: 10px;"></ion-icon>
+
+              <ion-icon disabled="true" *ngIf="rating < 1" name="star-outline" style="font-size: 14px;"></ion-icon>
+              <ion-icon disabled="true" *ngIf="rating < 2" name="star-outline" style="font-size: 14px;"></ion-icon>
+              <ion-icon disabled="true" *ngIf="rating < 3" name="star-outline" style="font-size: 14px;"></ion-icon>
+              <ion-icon disabled="true" *ngIf="rating < 4" name="star-outline" style="font-size: 14px;"></ion-icon>
+              <ion-icon disabled="true" *ngIf="rating < 5" name="star-outline"
+                style="font-size: 14px;margin-right: 10px;"></ion-icon>
+              <span class="product_weight">({{ratingCount}} Ratings)</span><br>
+              <ion-label class="product_price">
+                <div>₹ {{productDetails.defaultDisplayedPrice}}</div>
+                <div class="text-light product_price_muted" *ngIf="productDetails.compareToPrice > 0">₹
+                  {{productDetails.compareToPrice}}</div>
+              </ion-label>
+
+              <ion-button *ngIf="productDetails.inStock === true && productDetails.options.length === 0" class="product_qty btnCollection" color="light">
+                <ion-button (click)="removeCart()" class="product_qty ionButton"
+                  style="--border-color: white !important;" color="light">
+                  <ion-icon name="remove-outline" class="remove"></ion-icon>
+                </ion-button>
+                <ion-label>{{cartS.getCount_1(productDetails)}}</ion-label>
+                <ion-button (click)="addCart()" class="product_qty ionButton" style="--border-color: white !important;"
+                  color="light">
+                  <ion-icon name="add-circle" class="add"></ion-icon>
+                </ion-button>
+              </ion-button>
+              <ion-button *ngIf="productDetails.inStock === true && productDetails.options.length > 0" class="product_qty btnCollection" color="light" style="height: 27px !important;">
+                <!-- <ion-button (click)="addCart()" class="product_qty ionButton" style="--border-color: white !important;"
+                  color="light">
+                  <ion-icon name="add-circle" class="add"></ion-icon>
+                </ion-button> -->
+                <ion-button (click)="addCart()" class="product_qty ionButton" color="dark" style="--padding-left: 5px; --padding-right: 5px;height: 22px !important;">
+                  ADD
+                </ion-button>
+              </ion-button>
+              <div class="product_qty" *ngIf="productDetails.inStock === false"
+                [style.width]="productDetails.inStock == true ? '70px': 'unset'">
+              </div>
+              <h6 class="desc">Description</h6>
+              <p class="product_desc" [innerHTML]="productDetails.description"></p>
+            </div>
+          </ion-grid>
+        </ng-container>
+        <ng-container *ngIf="optionsStatus">
+          <ion-grid style="padding: unset;width: 100%;height: 80%;overflow: scroll;">
+            <ion-row>
+              <ion-col>
+                <ion-item lines="full">
+                  <ion-avatar slot="start">
+                    <img src="{{productDetails.imageUrl}}" />
+                  </ion-avatar>
+                  <ion-label>
+                    <h5>Customized "{{productDetails.name}}"</h5>
+                    <p>
+                      <span class="product_price_1">₹ {{productDetails.defaultDisplayedPrice}}</span> &nbsp;
+                      <span class="product_price_muted_1" *ngIf="productDetails.compareToPrice > 0">₹
+                        {{productDetails.compareToPrice}} </span>
+                    </p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <div *ngFor="let item of optionsArr" style="padding: 0 20px;width: 100%;">
+                <ng-container *ngIf="item.type === 'RADIO' || item.type === 'SIZE'">
+                  <h6 style="text-transform: capitalize;">{{item.name}}</h6>
+                  <ion-list>
+                    <ion-radio-group value="{{item.choices[item.defaultChoice].priceModifier}}">
+                      <ng-container *ngFor="let option of item.choices">
+                        <ion-item (click)="addCartUsingRadioOption(option, item.name, item.type)">
+                          <ion-label>{{option.text}} - <span class="product_price_2">₹
+                              {{option.priceModifier + productDetails.price}}</span></ion-label>
+                          <ion-radio slot="start" value="{{option.priceModifier}}"></ion-radio>
+                        </ion-item>
+                      </ng-container>
+                    </ion-radio-group>
+                  </ion-list>
+                </ng-container>
+              </div>
+            </ion-row>
+          </ion-grid>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="addressDetails.length > 0">
+        <ion-grid class="padding-unset" style="padding: unset;width: 100%;">
+          <!-- <ion-row>
+            <ion-col class="padding-unset">
+              <ion-item lines="none">
+                <ion-label> Search Location </ion-label>
+                <i class="material-icons" slot="end" (click)="toggleDrawer('')"> close </i>
+              </ion-item>
+              <ion-searchbar mode="ios" [(ngModel)]="searchTerm" (keyup)="initService()"></ion-searchbar>
+              <ion-item lines="full">
+                <i class="material-icons text-primary-color" slot="start" style="margin-right: 10px;"> near_me </i>
+                <ion-label color="primary"> Use current location </ion-label>
+              </ion-item>
+              <ion-item lines="full">
+                <i class="material-icons text-primary-color" slot="start" style="margin-right: 10px;"> add </i>
+                <ion-label color="primary"> Add address </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row> -->
+          <ion-row>
+            <ion-col class="padding-unset">
+              <ion-item lines="full" (click)="addAddress()">
+                <i class="material-icons text-primary-color" slot="start" style="margin-right: 10px;"> add </i>
+                <ion-label color="primary"> Add address </ion-label>
+              </ion-item>
+              <ion-item lines="none" style="position: sticky;top: 0;">
+                <ion-label> Saved Address </ion-label>
+                <i class="material-icons" slot="end" (click)="toggleDrawer('')"> close </i>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        
+        <ng-container *ngIf="addressCount === 0">
+          <div class="container">
+            <div>
+              <img src="assets/location.png" alt="">
+            </div>
+            <div>Look's like you don't have any saved address</div>
+          </div>
+        </ng-container>  
+          
+        <ion-grid *ngIf="addressCount > 0" class="padding-unset" style="padding: unset;width: 100%;height: 80%;overflow: scroll;padding-bottom: 50px;">
+          <ion-row>
+            <ion-col>
+              <ng-container *ngFor="let item of addressArr">
+                <ion-item lines="none">
+                  <i (click)="updateUserAddressDefault(item._id)" [class.text-primary-color]="item.default" class="material-icons text-gray-color start margin-top-3" slot="start" *ngIf="item.type === 'Home'">home</i>
+                  <i (click)="updateUserAddressDefault(item._id)" [class.text-primary-color]="item.default" class="material-icons text-gray-color start margin-top-3" slot="start" *ngIf="item.type === 'Work'">work</i>
+                  <i (click)="updateUserAddressDefault(item._id)" [class.text-primary-color]="item.default" class="material-icons text-gray-color start margin-top-3" slot="start" *ngIf="item.type !== 'Home' && item.type !== 'Work'">place</i>
+                  <ion-label>
+                    <h4 (click)="updateUserAddressDefault(item._id)">{{item.type}}</h4>
+                    <p (click)="updateUserAddressDefault(item._id)">{{item.house_flat_floor_no}}, {{item.apartment_road_area}}, {{item.landmark}}, {{item.city}}, {{item.pincode}}</p>
+                    <span class="edit-btn" (click)="updateAddress(item, item._id)">Edit</span>
+                    <span class="delete-btn" (click)="deleteAddress(item._id)">Delete</span>
+                  </ion-label>
+                </ion-item>
+              </ng-container>  
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-container>
+    </ion-content>
+  </ng-container>  
+</div>

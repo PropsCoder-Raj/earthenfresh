@@ -1,0 +1,36 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" mode="ios"> 
+        <ion-icon name="chevron-back" class="back-icon"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+    <ion-title>Notification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container" *ngIf="notificationCount === 0">
+    <div>
+      <img src="assets/notification.png" alt="" width="100px">
+    </div>
+    <p><small> Looks like you don't have any notifications</small></p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ng-container *ngFor="let item of notificationList">
+          <ion-item lines="full">
+            <ion-label>
+              <h2>{{item.title}}</h2>
+              <p>{{item.message}}</p>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>            
+
+</ion-content>

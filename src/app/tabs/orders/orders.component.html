@@ -1,0 +1,99 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      Orders
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item lines="none" *ngIf="orders.length === 0 && !loading">
+    <ion-label style="text-align: center !important;">Look's like you don't have placed any orders</ion-label>
+  </ion-item>
+  <div *ngIf="loading">
+    <ion-item style="--border-style:dashed">
+      <ion-label>
+        <h3 style="white-space: break-spaces;">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </h3>
+        <p style="color:#616161">
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 55%"></ion-skeleton-text>
+        </p>
+        <ion-text style="font-size:small" slot="end">
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item style="--border-style:dashed">
+      <ion-label>
+        <h3 style="white-space: break-spaces;">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </h3>
+        <p style="color:#616161">
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 55%"></ion-skeleton-text>
+        </p>
+        <ion-text style="font-size:small" slot="end">
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item style="--border-style:dashed">
+      <ion-label>
+        <h3 style="white-space: break-spaces;">
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </h3>
+        <p style="color:#616161">
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 55%"></ion-skeleton-text>
+        </p>
+        <ion-text style="font-size:small" slot="end">
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </div>
+  <ng-container *ngFor="let item of orders">
+    <ion-item style="--border-style:dashed">
+      <ion-label>
+        <h3 style="white-space: break-spaces;font-weight: bold;">ORD {{item.id}}</h3>
+        <h3 style="white-space: break-spaces;">{{item.orderComments}}</h3>
+        <p style="color:#616161">₹ {{item.total}}</p>
+        <p>{{item.createDate | date : "dd  MMM yyyy, hh:mm a"}}</p>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'DELIVERED'" color="primary" slot="end">
+          DELIVERED</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'WILL_NOT_DELIVER'" color="danger"
+          slot="end">WILL NOT DELIVER</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'RETURNED'" color="danger" slot="end">
+          RETURNED</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'AWAITING_PROCESSING'" color="primary"
+          slot="end">ORDER RECEIVED</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'PROCESSING'" color="primary" slot="end">
+          ORDER RECEIVED</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'SHIPPED'" color="primary" slot="end">
+          SHIPPED</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'READY_FOR_PICKUP'" color="primary"
+          slot="end">READY FOR PICKUP</ion-text>
+        <ion-text style="font-size:small" *ngIf="item.fulfillmentStatus === 'OUT_FOR_DELIVERY'" color="primary"
+          slot="end">OUT FOR DELIVERY</ion-text>
+      </ion-label>
+
+    </ion-item>
+    <ion-item *ngIf="item.fulfillmentStatus === 'SHIPPED' || item.fulfillmentStatus === 'DELIVERED'">
+      <ion-button slot="end" color="dark" fill="outline" style="font-weight: 600;" (click)="ratingModal(item, item.id)">
+        Rate Order
+      </ion-button>
+    </ion-item>
+  </ng-container>
+
+</ion-content>

@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">
+      Account
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none" color="primary">
+    <ion-label>
+      <h2>{{userS.name}}</h2>
+      <h3>+91 {{userS.phone}}</h3>
+      <h3>{{authS.currentUserValue.email}}</h3>
+    </ion-label>
+    <ion-icon name="create" style="cursor: pointer;" slot="end" (click)="editProfileModal()"></ion-icon>
+  </ion-item>
+  <ion-item lines="none" class="my_address" mode="ios" [routerLink]="['/auth/manage-address']">
+    <ion-icon name="home-outline" slot="start"></ion-icon>
+    <ion-label style="color:#424242">
+      My Address
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none" class="my_address" mode="ios" [routerLink]="['/more/refer']">
+    <ion-icon name="ticket-outline" slot="start"></ion-icon>
+    <ion-label style="color:#424242">
+      Refer & earn
+    </ion-label>
+  </ion-item>
+  <ion-item lines="none" class="my_address" mode="ios" [routerLink]="['/more/transaction']">
+    <ion-icon name="wallet-outline" slot="start"></ion-icon>
+    <ion-label style="color:#424242">
+      Wallet
+    </ion-label>
+    <ion-text slot="end">₹ {{balance}}</ion-text>
+  </ion-item>
+  <div class="ion-text-center logout">
+    <ion-button color="light" size="small" mode="ios" (click)="logout()">
+      <ion-text color="danger">Logout</ion-text>
+    </ion-button>
+  </div>
+</ion-content>

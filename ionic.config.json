@@ -1,0 +1,7 @@
+{
+  "name": "earthenfresh",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

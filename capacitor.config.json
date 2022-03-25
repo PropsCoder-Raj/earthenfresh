@@ -1,0 +1,22 @@
+{
+	"appId": "com.tectiq.earthenfresh",
+	"appName": "Earthen Fresh",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins":{
+		"SplashScreen": {
+			"launchAutoHide": false,
+			"backgroundColor": "#7FB462"
+		},
+		"PushNotifications": {
+			"presentationOptions": ["badge", "sound", "alert"]
+		},
+		"plugins": {
+			"LocalNotifications": {
+			  "smallIcon": "ic_launcher_round",
+			  "iconColor": "#488AFF"
+			}
+		}
+	}
+	
+}
